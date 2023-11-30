@@ -4,6 +4,16 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import os
+#modulos que vamos a usar
+from flask import Flask, flash
+from flask import render_template,request,redirect,url_for,session, Response
+from flask_mysqldb import MySQL,MySQLdb
+from flask import send_from_directory
+from datetime import datetime
+import os
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import text
+
 
 from flask import Flask
 from flask_login import LoginManager
@@ -13,7 +23,6 @@ from importlib import import_module
 
 db = SQLAlchemy()
 login_manager = LoginManager()
-
 
 def register_extensions(app):
     db.init_app(app)

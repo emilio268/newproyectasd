@@ -3,14 +3,14 @@
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="/">
         <img src="{{ config.ASSETS_ROOT }}/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Soft UI Dashboard</span>
+        <span class="ms-1 font-weight-bold">RYM Construcciones</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/index.html">
+          <a class="nav-link {% if 'index' in segment %} active {% endif %}" href="/dashboard-admin">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>shop </title>
@@ -55,7 +55,7 @@
         {% endif %}
         
         <li class="nav-item">
-          <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/tables.html">
+          <a class="nav-link {% if 'tables' in segment %} active {% endif %}" href="/clientes/vista">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>office</title>
@@ -71,11 +71,11 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Tables</span>
+            <span class="nav-link-text ms-1">Usuarios</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if 'billing' in segment %} active {% endif %}" href="/billing.html">
+          <a class="nav-link {% if 'billing' in segment %} active {% endif %}" href="/empleados/vista">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
@@ -91,11 +91,11 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Billing</span>
+            <span class="nav-link-text ms-1">Empleados</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if 'virtual-reality' in segment %} active {% endif %}" href="/virtual-reality.html">
+          <a class="nav-link {% if 'virtual-reality' in segment %} active {% endif %}" href="/servicios/vista">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>box-3d-50</title>
@@ -112,11 +112,11 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
+            <span class="nav-link-text ms-1">Servicios</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if 'rtl' in segment %} active {% endif %}" href="/rtl.html">
+          <a class="nav-link {% if 'rtl' in segment %} active {% endif %}" href="/proyectos/vista">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>settings</title>
@@ -133,7 +133,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">RTL</span>
+            <span class="nav-link-text ms-1">Proyectos</span>
           </a>
         </li>
         <li class="nav-item mt-3">
@@ -184,20 +184,5 @@
         </li>
       </ul>
     </div>
-    <div class="sidenav-footer mx-3 ">
-      <div class="card card-background shadow-none card-background-mask-secondary" id="sidenavCard">
-        <div class="full-background" style="background-image: url('{{ config.ASSETS_ROOT }}/img/curved-images/white-curved.jpg')"></div>
-        <div class="card-body text-start p-3 w-100">
-          <div class="icon icon-shape icon-sm bg-white shadow text-center mb-3 d-flex align-items-center justify-content-center border-radius-md">
-            <i class="ni ni-diamond text-dark text-gradient text-lg top-0" aria-hidden="true" id="sidenavCardIcon"></i>
-          </div>
-          <div class="docs-info">
-            <h6 class="text-white up mb-0">Need help?</h6>
-            <br />
-            <a href="https://appseed.us/support/" 
-               target="_blank" class="btn btn-white btn-sm w-100 mb-0">Contact Support</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    
   </aside>

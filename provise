@@ -11,6 +11,7 @@
     <div class="row">
       <div class="col-12">
 
+        {% include "includes/navigation-fullscreen.html" %}
 
       </div>
     </div>
@@ -25,13 +26,13 @@
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
                   <h3 class="font-weight-bolder text-info text-gradient">
-                    RYM Construcciones
+                    Soft UI Dashboard
                   </h3>
                   <p class="mb-0">
                     {% if msg %}
                       <span class="text-danger">{{ msg | safe }}</span>
                     {% else %}
-                      Ingresa tus datos
+                      Add your credentials
                     {% endif %}                     
                   </p>
                 </div>
@@ -110,36 +111,78 @@
       }
   }
 
-// Login hook  
-document.getElementsByTagName('form')[0].onsubmit = (e) => {
+  // Login hook  
+  document.getElementsByTagName('form')[0].onsubmit = (e) => {
+      e.preventDefault();
 
-  e.preventDefault();
-  
-  const formData = new FormData(e.target)
-  const username = formData.get('username');
-  const password = formData.get('password');
+      const formData = new FormData(e.target);
+      const username = formData.get('username');
+      const password = formData.get('password');
 
-  fetch('/login/jwt/',{
-      method: 'POST',
-      body: JSON.stringify({
-          username: username,
-          password: password
-      }),
-      headers: {
-          'Content-Type': 'application/json'
-      }
-  })
+      fetch('/login/jwt/', {
+          method: 'POST',
+          body: JSON.stringify({
+              username: username,
+              password: password
+          }),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      })
       .then((response) => response.json())
       .then((res) => {
+    console.log('Respuesta del servidor:', res);
+    if (res.data && res.data.token) {
 
-        //console.log('Token: ' + res.data); 
+              // Almacena el token en localStorage
+              asyncLocalStorage.setItem('token', res.data.token).then(result => {
 
-        // store token in localStorage
-        asyncLocalStorage.setItem('token',res.data).then(result => {e.target.submit()})
+                  // Realiza una solicitud adicional para obtener información de roles
+                  fetch('/get-roles/', {
+                      method: 'GET',
+                      headers: {
+                          'Authorization': 'Bearer ' + res.data.token
+                      }
+                  })
+                  .then(response => response.json())
+                  .then(rolesData => {
+    // Verifica si la respuesta contiene información de roles
+    if (rolesData.roles) {
+        // Almacena los roles en localStorage
+        asyncLocalStorage.setItem('roles', JSON.stringify(rolesData.roles))
+            .then(() => {
+                // Redirecciona según los roles
+                const roles = rolesData.roles;
+                console.log(rolesData.roles)
+                if (roles.includes('Administrador')) {
+                    // Redirecciona al dashboard del Administrador
+                    window.location.href = '/dashboard-admin';
+                } else if (roles.includes('Empleado')) {
+                    // Redirecciona al dashboard del Empleado
+                    window.location.href = '/dashboard-empleado';
+                } else if (roles.includes('Cliente')) {
+                    // Redirecciona al dashboard del Cliente
+                    window.location.href = '/home';
+                } else {
+                    console.error('Rol no reconocido.');
+                }
+                
+            });
+    } else {
+        console.error('No se pudo obtener la información de roles.');
+    }
+})
+.catch(error => console.error('Error al obtener información de roles:', error));
 
+              });
+          } else {
+              console.error('No se pudo obtener el token de autenticación.');
+          }
       })
-      .catch((err) => {console.log(err)})   
-}
+      .catch((err) => {
+          console.log(err);
+      });
+  }
 
 </script>
 

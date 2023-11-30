@@ -1,0 +1,35 @@
+{% include '/Dashboard-Admin/layout.html' %}
+<main>  
+    <div class="btn-crt">
+        <h2><i class='bx bx-user'></i>
+            <a href="{{ url_for('home_blueprint.empleados.create') }}"><span>Crear Empleado</span></a></h2>
+    </div><br><br>
+    <table id="basic-data-table" class="table-asd" style="width:100%">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %}
+                <tr>
+                  <td>{{ empleado[0] }}</td>
+                  <td>
+                    <div class="profile1">
+                    <img src="{{ url_for('home_blueprint.empleados.uploads', nombreFoto=empleado[3]) }}" alt="{{ empleado['Emp_Foto'] }}">
+                  </div>
+                  </td>
+                  <td>{{ empleado[1] }}</td>
+                  <td>{{ empleado[2] }}</td>
+                  <td><a href="{{ url_for('home_blueprint.empleados.edit', Emp_Id=empleado[0]) }}"><span class="danger">Editar</span></a></td>
+                  <td><a href="{{ url_for('empleados.destroy', Emp_Id=empleado[0]) }}"><span class="danger">Eliminar</span></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+<script src="../static/js/orders.js"></script>

@@ -1,0 +1,40 @@
+{% include 'Dashboard-Admin/layout.html' %}
+
+<main>  
+       
+    <div class="btn-crt">
+        <h2><i class='bx bx-user'></i>
+            <a href="{{ url_for('home_blueprint.proyectos.create') }}"><span>Crear Proyecto</span></a></h2>
+    </div><br><br>
+    <table id="basic-data-table" class="table-asd" style="width:100%">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+    {% for proyecto in proyectos %}
+
+            <tbody>
+                <tr>
+                  <td>{{proyecto[0] }}</td>
+                  <img class="img-thumbnail" width="100" src="{{ url_for('home_blueprint.proyectos.uploads', nombreFoto=proyecto[3]) }}" alt="">
+                  <td>{{proyecto[1] }}</td>
+                  <td>{{proyecto[2] }}</td>
+                  <td><a href="{{ url_for('home_blueprint.proyectos.edit', Proy_Id=proyecto[0]) }}"><span class="danger">editar</span></a></td>
+                  <td><a href="{{ url_for('home_blueprint.proyectos.destroy', Proy_Id=proyecto[0]) }}"><span class="danger">Eliminar</span></a></td>
+                </tr>
+    
+    {% endfor %}
+
+        </main>
+    <script src="../static/js/orders.js"></script>
+    <script src="../static/js/index.js"></script>
+
+    
+</tbody>
+</table>

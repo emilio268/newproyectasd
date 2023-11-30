@@ -7,6 +7,8 @@ from flask import Blueprint
 
 blueprint = Blueprint(
     'home_blueprint',
+    'empleados_blueprint',
+    'clientes_blueprint',
     __name__,
     url_prefix=''
 )

@@ -9,7 +9,8 @@ from datetime import datetime
 from flask_restx import Resource, Api
 
 import flask
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request, url_for, jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_login import (
     current_user,
     login_user,
@@ -69,12 +70,41 @@ def login():
                                form=login_form)
 
     if current_user.is_authenticated:
-        return redirect(url_for('home_blueprint.index'))
+        return redirect(url_for('home_blueprint.mostrar_dashboardadmin'))
     else:
         return render_template('accounts/login.html',
                                form=login_form) 
 
+@api.route('/get-roles/', methods=['GET'])
+class GetRoles(Resource):
+    @jwt_required()  # Asegura que el usuario esté autenticado con un token válido
+    def get(self):
+        try:
+            # Obtiene la identidad del token (en este caso, el username del usuario)
+            current_username = get_jwt_identity()
 
+            # Busca el usuario en la base de datos
+            user = Users.query.filter_by(username=current_username).first()
+
+            # Verifica si el usuario existe y tiene roles
+            if user and user.roles:
+                # Retorna los roles del usuario
+                return {
+                    'success': True,
+                    'roles': user.roles
+                }
+            else:
+                return {
+                    'success': False,
+                    'message': 'Usuario no encontrado o sin roles asignados.'
+                }, 404
+        except Exception as e:
+            return {
+                'success': False,
+                'error': 'Error al obtener roles.',
+                'message': str(e)
+            }, 500
+        
 @blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     create_account_form = CreateAccountForm(request.form)
